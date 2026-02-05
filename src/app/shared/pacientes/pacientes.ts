@@ -22,7 +22,7 @@ export class Pacientes {
       nombre: "Pirichi",
       especie: "Bad Bunny",
       urgencia: "Baja",
-      recuperacion: 40
+      recuperacion: 50
     },
     {
       nombre: "Sr. Flint",

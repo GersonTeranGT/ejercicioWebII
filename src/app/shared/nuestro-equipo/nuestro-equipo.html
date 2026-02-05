@@ -7,31 +7,30 @@
 
                 <p class="max-w-2xl mt-4 text-gray-800">
                     Contamos con profesionales calificados, titulados en las mejores universidades y que tienen un gran
-                    amor por los anlimales.
+                    amor por los animales.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-0 xl:mx-4 xl:w-1/2 md:grid-cols-2">
+                @for (equipo of equipos; track equipo.id) {
                 <div>
-                    <img class="object-cover rounded-xl aspect-square"
-                        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
-                        alt="">
+                    <img class="object-cover rounded-xl aspect-square" [title]="equipo.nombre" [src]="equipo.foto"
+                        [alt]="equipo.nombre">
 
-                    <h1 class="mt-4 text-2xl font-semibold text-black-700 capitalize">Dra. María González
-                    </h1>
+                    <h1 class="mt-4 text-2xl font-semibold text-black-700 capitalize">{{equipo.nombre}}</h1>
 
-                    <p class="mt-2 text-gray-800 capitalize">Cardiólogo</p>
+                    <p class="mt-2 capitalize" 
+                    [ngClass]="{
+                        'text-blue-500': equipo.profesion === 'Dermatólogo',
+                        'text-red-500': equipo.profesion === 'Cardiólogo',
+                        'text-emerald-700': equipo.profesion === 'Odontólogo',
+                    }"><strong>{{equipo.profesion}}</strong></p>
+
                 </div>
+                }
 
-                <div>
-                    <img class="object-cover rounded-xl aspect-square"
-                        src="https://images.pexels.com/photos/6235017/pexels-photo-6235017.jpeg" alt="">
-
-                    <h1 class="mt-4 text-2xl font-semibold text-black-700 capitalize">Dr. Jhon Adams</h1>
-
-                    <p class="mt-2 text-gray-800 capitalize">Dermatologo</p>
-                </div>
             </div>
+
         </div>
     </div>
 </section>
