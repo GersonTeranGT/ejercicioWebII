@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-hero-informacion',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './hero-informacion.css',
 })
 export class HeroInformacion {
-
+  @Input() titulo!: string;
+  @Input() imagen!: string;
 }

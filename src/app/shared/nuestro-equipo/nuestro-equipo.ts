@@ -1,5 +1,5 @@
 import { CommonModule, NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 
 
@@ -10,6 +10,8 @@ import { Component } from '@angular/core';
   styleUrl: './nuestro-equipo.css',
 })
 export class NuestroEquipo {
+@Input() titulo!:string;
+@Input() descripcion!: string;
 
   equipos=[
     {

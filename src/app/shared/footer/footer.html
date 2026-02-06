@@ -12,7 +12,7 @@
 
             <div class="flex flex-wrap justify-center mt-6 -mx-4">
                 @for (enlace of enlaces; track $index) {
-                <a href="#"
+                <a routerLink="{{enlace.link}}"
                     class="mx-4 text-sm text-black-600 transition-colors duration-300 hover:text-blue-500  dark:hover:text-blue-400"
                     aria-label="Reddit"><strong> {{enlace.texto}} </strong></a>
                 }
