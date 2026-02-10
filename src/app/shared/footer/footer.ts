@@ -22,13 +22,13 @@ export class Footer {
       texto:"Consultas", link: "consultas"
     },
     {
-      texto:"Mascotas", link: "#"
+      texto:"Mascotas", link: "mascotas"
     },
     {
       texto:"Contacto", link: "#"
     },
     {
-      texto:"Registro", link: "#"
+      texto:"Registro", link: "registro"
     },
   ];
 

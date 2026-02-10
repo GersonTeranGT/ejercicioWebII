@@ -17,7 +17,7 @@ export class Mascotas {
   mascotas = signal<Pet[]>([]);
 
   ngOnInit(): void {
-    //me suscribo al observable
+    //me suscribo al observable despertar al observable
     this.mascotaServicio.getMascotas().subscribe(datos => {
       this.mascotas.set(datos.data)
     })
@@ -29,7 +29,7 @@ export class Mascotas {
       text: 'Tu nueva aventura comienza aquí 🐾',
       icon: 'success',
       confirmButtonText: 'Cerrar',
-      confirmButtonColor: '#6366f1' // Indigo-600
+      confirmButtonColor: '#6366f1'
     });
 
   }
