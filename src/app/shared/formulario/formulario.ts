@@ -56,7 +56,7 @@ export class Formulario {
   }
 
   //metodo para eliminar
-  eliminarUsuario(id: number) {
+  eliminarUsuario(id: string) {
     if (confirm('¿Desea eliminar el registro?')) {
       //despertamos a la funcion deleteUsuario
       this.servicioUsuario.deleteUsuario(id).subscribe(() => {
