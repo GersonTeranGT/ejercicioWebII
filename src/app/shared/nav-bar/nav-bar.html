@@ -25,6 +25,7 @@
                     <a routerLink="acerca"
                         class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Acerca</a>
                 </li>
+                @if (servicioAuth.sesionIniciada()) {
                 <li>
                     <a routerLink="consultas"
                         class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Consultas</a>
@@ -33,24 +34,35 @@
                     <a routerLink="mascotas"
                         class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Mascotas</a>
                 </li>
+                }
                 <li>
+                    @if (!servicioAuth.sesionIniciada()) {
                     <a routerLink="crearCuenta"
-                        class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Crear cuenta</a>
+                        class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Crear
+                        cuenta</a>
+                    }
                 </li>
                 <li>
+                    @if (servicioAuth.rolActual() === 'ADMIN') {
                     <a routerLink="registro"
                         class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Registro</a>
+                    }
                 </li>
                 <li>
+                    @if (!servicioAuth.sesionIniciada()) {
                     <a routerLink="login"
                         class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Login</a>
+                    }
                 </li>
                 <li>
-                    <a (click)="cerrarSesion()"
-                        class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Cerrar sesión</a>
+                    @if (servicioAuth.sesionIniciada()) {
+                    <a (click)="cerrarSesion()" routerLink="#"
+                        class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Cerrar
+                        sesión - {{servicioAuth.rolActual()}}</a>
+                    }
                 </li>
             </ul>
         </div>
-        
+
     </div>
 </nav>
