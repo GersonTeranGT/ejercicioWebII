@@ -3,6 +3,7 @@ import { UsuarioServicio } from '../../services/usuario-servicio';
 import { Usuario } from '../../models/usuario';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-formulario',
@@ -14,6 +15,9 @@ export class Formulario {
   //inyeccion de servicio
   private servicioUsuario = inject(UsuarioServicio)
 
+  //inyeccion servivox de autenticacion
+  public servicioAuth = inject(AuthService);
+
   //significa que angular va a estar pendiente 
   listaUsuarios = signal<Usuario[]>([]);
 
@@ -24,7 +28,9 @@ export class Formulario {
   nuevoUsuario: Usuario = {
     name: '',
     email: '',
-    phone: ''
+    phone: '',
+    password: '',
+    rol: 'EMPLEADO'
   };
 
   ngOnInit(): void {
@@ -77,7 +83,9 @@ export class Formulario {
     this.nuevoUsuario = {
       name: '',
       email: '',
-      phone: ''
+      phone: '',
+      password: '',
+      rol: 'EMPLEADO'
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth-service';
 import { FormsModule } from "@angular/forms";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,13 +17,24 @@ export class Login {
 
   private servicioAuth= inject(AuthService);
 
+  private router = inject(Router)
+
   iniciarSesion(){
-    this.servicioAuth.login(this.email, this.password);
-    alert("Bienvenidos al sistema");
+    this.servicioAuth.login(this.email, this.password).subscribe(success => {
+      if (success) {
+        alert("Bienvenidos al sistema");
+        this.router.navigate(['registro'])
+      } else{
+        alert('Error: usuario no encontrado');
+      }
+    });
+    
   }
 
   cerrarSesion(){
     this.servicioAuth.logout();
+    alert('Sesión cerrada')
+    this.router.navigate([''])
   }
 
 }

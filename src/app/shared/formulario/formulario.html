@@ -16,6 +16,9 @@
             <input [(ngModel)]="nuevoUsuario.phone" name="phone" type="text" placeholder="Teléfono" required
                 class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-emerald-500 outline-none transition-all">
 
+            <input [(ngModel)]="nuevoUsuario.password" name="password" type="password" placeholder="Contraseña" required
+                class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-emerald-500 outline-none transition-all">
+
             <button type="submit"
                 class="md:col-span-3 bg-green-400 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-indigo-200">
                 {{editando ? 'Actualizar usuario':'Registrar usuario'}}
@@ -42,8 +45,12 @@
                     <td class="p-4 text-slate-600">{{usuario.email}}</td>
                     <td class="p-4 text-slate-600">{{usuario.phone}}</td>
                     <td class="p-4 text-slate-600">
+                        @if (servicioAuth.rolActual() === 'ADMIN') {
                         <button (click)="seleccionarParaEditar(usuario)" class="pr-6 hover: cursor-pointer">✏️​</button>
                         <button (click)="eliminarUsuario(usuario.id!)" class="pr-6 hover: cursor-pointer">🗑️​</button>
+                        } @else {
+                            <span>Bloqueado 🔒​</span>
+                        }
                     </td>
                 </tr>   
             }@empty {
