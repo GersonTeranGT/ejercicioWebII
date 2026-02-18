@@ -6,6 +6,7 @@ import { Mascotas } from './shared/mascotas/mascotas';
 import { Usuarios } from './features/usuarios/usuarios';
 import { FormularioCuenta } from './shared/formulario-cuenta/formulario-cuenta';
 import { Login } from './shared/login/login';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
     //1. ruta incial
@@ -16,7 +17,7 @@ export const routes: Routes = [
     {path:'consultas', component:Consultas},
     {path:'mascotas', component:Mascotas},
     {path:'crearCuenta', component:FormularioCuenta},
-    {path:'registro', component:Usuarios},
+    {path:'registro', component:Usuarios, canActivate:[authGuard]},
     {path:'login', component:Login}
     //3. redireccion si el usuario escribe una url no existe
     //{path:'**', component:Pagina404}
