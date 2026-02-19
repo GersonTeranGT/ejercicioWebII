@@ -8,6 +8,8 @@ import { FormularioCuenta } from './shared/formulario-cuenta/formulario-cuenta';
 import { Login } from './shared/login/login';
 import { authGuard } from './guards/auth-guard';
 import { adminMatchGuard, empleadoMatchGuard, publicMatchGuard } from './guards/match-guard';
+import { authGuardGuard } from './guards/outh-guard-guard';
+
 
 export const routes: Routes = [
     //1. ruta incial
@@ -22,7 +24,9 @@ export const routes: Routes = [
     {path:'consultas', component:Consultas, canMatch:[empleadoMatchGuard]},
     {path:'mascotas', component:Mascotas, canMatch:[empleadoMatchGuard]},
     
-    {path:'registro', component:Usuarios, canActivate:[authGuard], canMatch:[adminMatchGuard]},
+    {path:'registro', component:Usuarios, canActivate:[authGuard], canMatch:[adminMatchGuard], canDeactivate
+        :[authGuardGuard]
+    },
     
     //3. redireccion si el usuario escribe una url no existe
     //{path:'**', component:Pagina404}

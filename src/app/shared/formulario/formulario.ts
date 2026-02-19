@@ -1,9 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { UsuarioServicio } from '../../services/usuario-servicio';
 import { Usuario } from '../../models/usuario';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
+import { Salir } from '../../guards/outh-guard-guard';
 
 @Component({
   selector: 'app-formulario',
@@ -11,9 +13,11 @@ import { AuthService } from '../../services/auth-service';
   templateUrl: './formulario.html',
   styleUrl: './formulario.css',
 })
-export class Formulario {
+export class Formulario implements OnInit, Salir{
   //inyeccion de servicio
   private servicioUsuario = inject(UsuarioServicio)
+  //cambio canDeactivate
+  private router = inject(Router)
 
   //inyeccion servivox de autenticacion
   public servicioAuth = inject(AuthService);
@@ -46,8 +50,32 @@ export class Formulario {
     })
   }
 
+
+  finalizarYSalir(){
+    this.obtenerUsuarios();
+    this.resetear();
+    this.router.navigate(['/'])
+  }
+
+  //cambio canDeactivate
+  permitirSalir(): boolean {
+    const datosIntroducidos = 
+    (this.nuevoUsuario.name?.trim() ?? '') !== ''||
+    (this.nuevoUsuario.email?.trim() ?? '') !== '' ||
+    (this.nuevoUsuario.phone?.trim() ?? '') !== '';
+
+    if (this.editando || datosIntroducidos) {
+      return confirm('Tienes cambios si guardar en el formulario. ¿Desaeas salir?')
+    }
+    return true;
+  }
   //metodo guardar usuario
   guardarUsuario() {
+    //cambio canDeactivate
+    const accion = this.editando? 'Actualizar': 'Registrar';
+    if (confirm(`Esta seguro de quedeseas ${accion } a este usuario`)) {
+      
+    
     if (this.editando && this.nuevoUsuario.id) {
       this.servicioUsuario.putUsuario(this.nuevoUsuario.id, this.nuevoUsuario).subscribe(() => {
         this.obtenerUsuarios();
@@ -59,6 +87,7 @@ export class Formulario {
         this.resetear();
       })
     }
+  }
   }
 
   //metodo para eliminar

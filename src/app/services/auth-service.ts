@@ -7,6 +7,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+
   
   private servicioUsuario = inject(UsuarioServicio);
 
