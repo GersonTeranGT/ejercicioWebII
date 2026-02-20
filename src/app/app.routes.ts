@@ -17,7 +17,7 @@ export const routes: Routes = [
     {path:'', component:Home, canMatch: [publicMatchGuard]},
     {path:'consultas', component:Consultas, canMatch:[empleadoMatchGuard], canActivateChild:[childGuardGuard],
         children:[
-            {path:'ver', component:[]}
+            //{path:'ver', component:[Consultas]}
         ]
     },
 
