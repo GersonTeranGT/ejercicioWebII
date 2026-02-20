@@ -9,11 +9,23 @@ import { Login } from './shared/login/login';
 import { authGuard } from './guards/auth-guard';
 import { adminMatchGuard, empleadoMatchGuard, publicMatchGuard } from './guards/match-guard';
 import { authGuardGuard } from './guards/outh-guard-guard';
+import { childGuardGuard } from './guards/child-guard-guard';
 
 
 export const routes: Routes = [
     //1. ruta incial
     {path:'', component:Home, canMatch: [publicMatchGuard]},
+    {path:'consultas', component:Consultas, canMatch:[empleadoMatchGuard], canActivateChild:[childGuardGuard],
+        children:[
+            {path:'ver', component:[]}
+        ]
+    },
+
+    {path:'', canActivateChild:[childGuardGuard], 
+        children:[
+            {path:'mascotas', component:Mascotas, canMatch:[empleadoMatchGuard]},
+    ]
+},
     //2. rutas de navegacion
     {path:'acerca', component:Acerca, canMatch: [publicMatchGuard]},
     //path para las consultas
@@ -21,8 +33,8 @@ export const routes: Routes = [
     {path:'login', component:Login, canMatch: [publicMatchGuard]},
     {path:'crearCuenta', component:FormularioCuenta, canMatch: [publicMatchGuard]},
     // rutas solo para empleado - el admin y el empleado pueden verlas
-    {path:'consultas', component:Consultas, canMatch:[empleadoMatchGuard]},
-    {path:'mascotas', component:Mascotas, canMatch:[empleadoMatchGuard]},
+    
+    
     
     {path:'registro', component:Usuarios, canActivate:[authGuard], canMatch:[adminMatchGuard], canDeactivate
         :[authGuardGuard]

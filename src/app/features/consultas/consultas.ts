@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Mascota } from '../../models/mascota';
 import { DetalleMascota } from "../../shared/detalle-mascota/detalle-mascota";
 import { HeroInformacion } from "../../shared/hero-informacion/hero-informacion";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-consultas',
-  imports: [DetalleMascota, HeroInformacion],
+  imports: [DetalleMascota, HeroInformacion, RouterLink],
   templateUrl: './consultas.html',
   styleUrl: './consultas.css',
 })
