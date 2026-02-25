@@ -13,7 +13,7 @@ import { Salir } from '../../guards/outh-guard-guard';
   templateUrl: './formulario.html',
   styleUrl: './formulario.css',
 })
-export class Formulario implements OnInit, Salir{
+export class Formulario implements OnInit{
   //inyeccion de servicio
   private servicioUsuario = inject(UsuarioServicio)
   //cambio canDeactivate
@@ -30,11 +30,10 @@ export class Formulario implements OnInit, Salir{
 
   //usuario que vamos a guardar en la lista
   nuevoUsuario: Usuario = {
-    name: '',
+    nombre: '',
     email: '',
-    phone: '',
     password: '',
-    rol: 'EMPLEADO'
+    rol: 'ROLE_VETERINARIO'
   };
 
   ngOnInit(): void {
@@ -58,22 +57,22 @@ export class Formulario implements OnInit, Salir{
   }
 
   //cambio canDeactivate
-  permitirSalir(): boolean {
-    const datosIntroducidos = 
-    (this.nuevoUsuario.name?.trim() ?? '') !== ''||
-    (this.nuevoUsuario.email?.trim() ?? '') !== '' ||
-    (this.nuevoUsuario.phone?.trim() ?? '') !== '';
+  // permitirSalir(): boolean {
+  //   const datosIntroducidos = 
+  //   (this.nuevoUsuario.nombre?.trim() ?? '') !== ''||
+  //   (this.nuevoUsuario.email?.trim() ?? '') !== '' ||
+  //   (this.nuevoUsuario.phone?.trim() ?? '') !== '';
 
-    if (this.editando || datosIntroducidos) {
-      return confirm('Tienes cambios si guardar en el formulario. ¿Desaeas salir?')
-    }
-    return true;
-  }
+  //   if (this.editando || datosIntroducidos) {
+  //     return confirm('Tienes cambios si guardar en el formulario. ¿Desaeas salir?')
+  //   }
+  //   return true;
+  // }
   //metodo guardar usuario
   guardarUsuario() {
     //cambio canDeactivate
     const accion = this.editando? 'Actualizar': 'Registrar';
-    if (confirm(`Esta seguro de quedeseas ${accion } a este usuario`)) {
+    
       
     
     if (this.editando && this.nuevoUsuario.id) {
@@ -87,11 +86,11 @@ export class Formulario implements OnInit, Salir{
         this.resetear();
       })
     }
-  }
+  
   }
 
   //metodo para eliminar
-  eliminarUsuario(id: string) {
+  eliminarUsuario(id: number) {
     if (confirm('¿Desea eliminar el registro?')) {
       //despertamos a la funcion deleteUsuario
       this.servicioUsuario.deleteUsuario(id).subscribe(() => {
@@ -110,11 +109,10 @@ export class Formulario implements OnInit, Salir{
   resetear() {
     this.editando = false;
     this.nuevoUsuario = {
-      name: '',
+      nombre: '',
       email: '',
-      phone: '',
       password: '',
-      rol: 'EMPLEADO'
+      rol: 'ROLE_VETERINARIO'
     }
   }
 
