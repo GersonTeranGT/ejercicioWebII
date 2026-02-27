@@ -19,17 +19,18 @@ export class Login {
 
   private router = inject(Router)
 
-  iniciarSesion(){
-    this.servicioAuth.login(this.email, this.password).subscribe(success => {
-      if (success) {
-        alert("Bienvenidos al sistema");
-        this.router.navigate(['registro'])
-      } else{
-        alert('Error: usuario no encontrado');
-      }
-    });
-    
-  }
+  iniciarSesion() {
+  this.servicioAuth.login(this.email, this.password).subscribe({
+    //Se activa si la respuesta de la api fue 200 OK.
+    next: () => {
+      alert('Registro exitoso');
+      this.router.navigate(['/usuarios']);
+    },
+    //Se activa si la api rechazó la petición 403, 404, 500.
+    error: () => alert('Usuario o contraseña incorrectos')
+  });
+}
+
 
   cerrarSesion(){
     this.servicioAuth.logout();

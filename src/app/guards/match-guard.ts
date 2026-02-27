@@ -27,7 +27,7 @@ export const empleadoMatchGuard: CanMatchFn = (route, segments) => {
   };
 
   //ADMIN y EMPLEADO pueden ver estas rutas
-  if (servicioAuth.rolActual() === 'ADMIN' || servicioAuth.rolActual() === 'EMPLEADO') {
+  if (servicioAuth.rolActual() === 'ROLE_ADMIN' || servicioAuth.rolActual() === 'ROLE_VETERINARIO') {
     return true;
   }
   return false;

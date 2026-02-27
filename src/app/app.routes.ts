@@ -14,17 +14,17 @@ import { childGuardGuard } from './guards/child-guard-guard';
 
 export const routes: Routes = [
     //1. ruta incial
-    { path: '', component: Home },
+    { path: '', component: Home, canMatch: [publicMatchGuard] },
     {
-        path: 'consultas', component: Consultas
+        path: 'consultas', component: Consultas, canMatch: [empleadoMatchGuard]
     },
 
 
-    { path: 'mascotas', component: Mascotas },
+    { path: 'mascotas', component: Mascotas, canMatch:[empleadoMatchGuard] },
 
 
     //2. rutas de navegacion
-    { path: 'acerca', component: Acerca },
+    { path: 'acerca', component: Acerca, canMatch: [publicMatchGuard]},
     //path para las consultas
     // rutas de autenticacion solo sin sesion
     { path: 'login', component: Login },
@@ -34,7 +34,7 @@ export const routes: Routes = [
 
 
     {
-        path: 'registro', component: Usuarios
+        path: 'registro', component: Usuarios,canActivate:[authGuard], canMatch:[adminMatchGuard],
     },
     //     //1. ruta incial
     //     {path:'', component:Home, canMatch: [publicMatchGuard]},

@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { UsuarioServicio } from './usuario-servicio';
 
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/usuario';
 
@@ -24,31 +24,26 @@ export class AuthService {
 
 
 
-  login(email: string, passw: string): Observable<boolean> {
-    return this.http.post<Usuario | null>(this.API_URL, {email, password:passw}).pipe(
-      map(usuarioCoinside => {
-        //const usuarioCoinside = usuarios.find(u => u.email === email && u.password === password);
-        if (usuarioCoinside) {
-          localStorage.setItem('sesion', 'true');
-          //guardar los datos convertiendo el objeto json a texto
-          localStorage.setItem('user', JSON.stringify(usuarioCoinside));
-          //guardar el rol
-          localStorage.setItem('rol', usuarioCoinside.rol);
-          this.rolActual.set(usuarioCoinside.rol);
+  login(email: string, password: string): Observable<any> {
+  return this.http.post<any>(this.API_URL, { email, password }).pipe(
+    //Permite que Angular mire lo que viene en la respuesta del servidor
+    tap(res => {
+      if (res && res.token) {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('rol', res.rol);
+        this.rolActual.set(res.rol);
+        this.sesionIniciada.set(true);
+      }
+    })
+  );
+}
 
-          this.sesionIniciada.set(true);
-          return true;
-        }
-        return false;
-      })
-
-    )
-  }
 
   logout() {
     localStorage.removeItem('sesion');
     localStorage.removeItem('user');
-    localStorage.removeItem('rol')
+    localStorage.removeItem('rol');
+    localStorage.removeItem('token');
     this.sesionIniciada.set(false);
     this.rolActual.set(null)
   }
